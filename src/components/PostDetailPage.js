@@ -1,9 +1,19 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export default function PostDetailPage() {
-  const {state} = useLocation();
-
+  const {id} = useParams ();
+  const [post, setPost] =useState({});
+  useEffect(() => {
+    fetch(`http://localhost:7070/posts/${id}`)
+      .then((response) => response.json())
+      .then((post) => setPost(post.post));
+  }, []);
+  console.log(id, post);
+  const navigate = useNavigate();
+  const handleClick = () =>{
+    navigate('/');
+  }
   return (
     <article className="posts-item">
       <div className="post-author">
@@ -12,11 +22,15 @@ export default function PostDetailPage() {
           <div className="author-name">Ilnaz Gilyazov</div>
           <div className="author-text">
             <div className="author-text__post">Основатель группы</div>
-            <div className="author-text__time">{state.posts.created}</div>
+            <div className="author-text__time">{post.created}</div>
           </div>
         </div>
       </div>
-      <div className="post-text">{state.posts.content}</div>
+      <div className="post-text">{post.content}</div>
+      <Link to={{
+        path: `/posts/edit/${id}`
+      }}>Edit</Link>
+      <button onClick={handleClick}></button>
     </article>
   )
 }

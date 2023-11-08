@@ -26,8 +26,7 @@ export default function HomePage() {
         <div className="posts">
           {posts.map((item) => (
             <Link key={item.id} to={{
-              pathname: `/posts/${item.id}`,
-              state: {posts: item}
+              pathname: `/posts/${item.id}`
               }}>
               <article className="posts-item">
                 <div className="post-author">

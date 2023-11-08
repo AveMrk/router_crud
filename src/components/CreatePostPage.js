@@ -7,7 +7,6 @@ export default function CreatePostPage() {
   const navigate = useNavigate();
   const [content, setContent] = useState('')
   const handleClick = (e) => {
-    e.preventDefault();
     navigate('/');
     const data = {
       id: 0,
